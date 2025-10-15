@@ -300,18 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Conteúdo: Obrigado por reportar o problema de ${formData.problemType} no endereço ${formData.street}, ${formData.neighborhood}.`);
     }
 
-    // Fechar modal e redirecionar
-    window.closeModalAndRedirect = function() {
-        document.getElementById('successModal').style.display = 'none';
-        window.location.href = 'index.html';
-    };
-
-    // Fechar modal clicando fora
-    window.addEventListener('click', function(e) {
-        const modal = document.getElementById('successModal');
-        if (e.target === modal) {
-            closeModalAndRedirect();
-        }
+   
     });
 
     // Adicionar indicadores visuais nos cards de urgência
@@ -378,4 +367,5 @@ document.addEventListener('DOMContentLoaded', function() {
         if (indicator.classList.contains('high')) indicator.textContent = '!!!';
         if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
     });
+
 });
