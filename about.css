@@ -1,0 +1,510 @@
+/* Reset e variáveis CSS - Consistente com a primeira página */
+:root {
+  --primary: #a82efc;
+  --primary-dark: #8a1ed9;
+  --secondary: #2e004f;
+  --secondary-light: #551a8b;
+  --accent: #ff3cff;
+  --text: #ffffff;
+  --text-secondary: #e0e0e0;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --border-radius: 12px;
+  --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+  color: var(--text);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Efeito de partículas no fundo */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Header consistente */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  transition: var(--transition);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header.scrolled {
+  padding: 15px 50px;
+  background-color: rgba(30, 0, 60, 0.9);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transition: var(--transition);
+}
+
+.logo:hover::after {
+  left: 100%;
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding: 8px 0;
+  transition: var(--transition);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: var(--transition);
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
+nav a.active {
+  color: var(--accent);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: url('Ft.jpg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 100px 20px 50px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(46, 0, 79, 0.8), rgba(85, 26, 139, 0.6));
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Animações de texto */
+.title-animation {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  background: linear-gradient(to right, #fff, #e0b3ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease-out;
+}
+
+.text-animation {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 50px;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Team Members */
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 60px 0;
+  flex-wrap: wrap;
+}
+
+.member-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  padding: 30px 20px;
+  width: 280px;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--box-shadow);
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.member-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: var(--primary);
+}
+
+.member-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 2rem;
+}
+
+.member-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.member-card p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.member-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.member-skills span {
+  background: rgba(168, 46, 252, 0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(168, 46, 252, 0.3);
+  transition: var(--transition);
+}
+
+.member-card:hover .member-skills span {
+  background: rgba(168, 46, 252, 0.4);
+  transform: scale(1.05);
+}
+
+/* Mission Section */
+.mission-section {
+  margin-top: 80px;
+  animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.mission-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  background: linear-gradient(to right, #fff, #e0b3ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mission-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.mission-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  padding: 40px 25px;
+  width: 300px;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--box-shadow);
+}
+
+.mission-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  border-color: var(--accent);
+}
+
+.mission-card i {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mission-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+.mission-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Footer consistente */
+.site-footer {
+  background: var(--secondary);
+  color: var(--text);
+  padding: 50px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  position: relative;
+  padding-left: 15px;
+}
+
+.footer-links a::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.footer-links a:hover::before {
+  color: var(--accent);
+  transform: scale(1.5);
+}
+
+.footer-address h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--accent);
+}
+
+.footer-address p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.footer-logo {
+  font-size: 2.2rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo .logo-text {
+  font-weight: 300;
+  margin-right: 4px;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.footer-logo .logo-gps {
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+  .title-animation {
+    font-size: 2.8rem;
+  }
+ 
+  .team-members {
+    gap: 20px;
+  }
+ 
+  .member-card {
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+ 
+  header.scrolled {
+    padding: 10px 20px;
+  }
+ 
+  nav {
+    gap: 15px;
+  }
+ 
+  .hero {
+    padding: 130px 20px 40px;
+  }
+ 
+  .title-animation {
+    font-size: 2.2rem;
+  }
+ 
+  .text-animation {
+    font-size: 1.1rem;
+  }
+ 
+  .team-members {
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  .member-card {
+    width: 100%;
+    max-width: 350px;
+  }
+ 
+  .mission-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  .mission-card {
+    width: 100%;
+    max-width: 350px;
+  }
+ 
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+}
+
+/* Animações extras */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.member-card:hover .member-avatar {
+  animation: float 2s ease-in-out infinite;
+}
