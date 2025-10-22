@@ -551,7 +551,7 @@ nav a:hover {
     display: block;
 }
 
-/* MODAL CORRIGIDO - ESTILO PROFISSIONAL */
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -829,8 +829,8 @@ nav a:hover {
         width: 50px;
         height: 50px;
     }
-
 }
+
 /* Garantir que o link no modal funcione como botão */
 .modal-content .btn-primary {
     text-decoration: none;
@@ -848,5 +848,3 @@ nav a:hover {
 .modal-content {
     cursor: auto;
 }
-
-
