@@ -579,3 +579,22 @@ nav a.active {
     border-color: #6a0dad;
     transform: scale(1.05);
 }
+
+.favicon-style {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: 50px;
+    border: 2px solid #8A2BE2; /* Borda roxa */
+    border-radius: 8px; /* Cantos arredondados */
+    padding: 2px; /* Espaço entre a imagem e a borda */
+    object-fit: contain; /* Garante que a imagem se ajuste sem distorcer */
+    background-color: white; /* Cor de fundo, se necessário */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave */
+    transition: all 0.3s ease; /* Transição suave para efeitos hover */
+}
+
+/* Efeito ao passar o mouse */
+.favicon-style:hover {
+    transform: scale(1.05); /* Aumenta ligeiramente */
+    border-color: #6a0dad; /* Muda a cor da borda */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Aumenta a sombra */
+}
