@@ -205,8 +205,8 @@ nav a.active {
 }
 
 body {
-    background-color: #f8f9fa;
-    color: ##8A2BE2;
+    background-color: #8A2BE2;
+    color: #333;
     line-height: 1.6;
 }
 
@@ -249,7 +249,7 @@ body {
 }
 
 .member-card {
-    background-color: white;
+    background-color: #8A2BE2;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -578,4 +578,5 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
