@@ -367,6 +367,122 @@ document.addEventListener('DOMContentLoaded', function() {
         if (indicator.classList.contains('high')) indicator.textContent = '!!!';
         if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
     });
+// ========== FUNÇÃO PARA GERAR RELATÓRIO ==========
+function generateReport() {
+    // Coletar dados do formulário
+    const formData = {
+        email: document.getElementById('email').value,
+        street: document.getElementById('street').value,
+        neighborhood: document.getElementById('neighborhood').value,
+        cep: document.getElementById('cep').value,
+        city: document.getElementById('city').value,
+        problemType: document.querySelector('input[name="problemType"]:checked').value,
+        urgency: document.querySelector('input[name="urgency"]:checked').value,
+        description: document.getElementById('description').value,
+        photos: uploadedFiles.length,
+        timestamp: new Date().toLocaleString('pt-BR'),
+        status: 'pendente'
+    };
 
+    // Criar conteúdo do relatório
+    const reportContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Relatório - VOXSane</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; }
+                .section { margin: 20px 0; }
+                .section h3 { background: #f5f5f5; padding: 10px; border-left: 4px solid #8a2be2; }
+                .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                .photos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+                .photo-item { width: 150px; height: 150px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
+                .urgency-badge { padding: 5px 10px; border-radius: 20px; color: white; font-weight: bold; }
+                .low { background: #28a745; }
+                .medium { background: #ffc107; color: black; }
+                .high { background: #fd7e14; }
+                .emergency { background: #dc3545; }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>📋 RELATÓRIO DE PROBLEMA - VOXSane</h1>
+                <p>Data de geração: ${new Date().toLocaleString('pt-BR')}</p>
+            </div>
+
+            <div class="section">
+                <h3>📧 Informações de Contato</h3>
+                <p><strong>Email:</strong> ${formData.email}</p>
+            </div>
+
+            <div class="section">
+                <h3>📍 Localização</h3>
+                <div class="info-grid">
+                    <p><strong>Rua:</strong> ${formData.street}</p>
+                    <p><strong>Bairro:</strong> ${formData.neighborhood}</p>
+                    <p><strong>CEP:</strong> ${formData.cep}</p>
+                    <p><strong>Cidade:</strong> ${formData.city}</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>🔧 Tipo de Problema</h3>
+                <p><strong>Problema Reportado:</strong> ${formData.problemType.toUpperCase()}</p>
+            </div>
+
+            <div class="section">
+                <h3>⚠️ Nível de Urgência</h3>
+                <span class="urgency-badge ${formData.urgency}">
+                    ${formData.urgency.toUpperCase()}
+                </span>
+            </div>
+
+            <div class="section">
+                <h3>📷 Fotos Anexadas</h3>
+                <p><strong>Quantidade de fotos:</strong> ${formData.photos}</p>
+            </div>
+
+            <div class="section">
+                <h3>📝 Descrição Detalhada</h3>
+                <p>${formData.description}</p>
+            </div>
+
+            <div class="section">
+                <h3>📊 Status</h3>
+                <p><strong>Status atual:</strong> ${formData.status}</p>
+                <p><strong>ID do reporte:</strong> #${Date.now()}</p>
+            </div>
+        </body>
+        </html>
+    `;
+
+    // Abrir relatório em nova aba
+    const reportWindow = window.open('', '_blank');
+    reportWindow.document.write(reportContent);
+    reportWindow.document.close();
+}
+
+// ========== BOTÃO PARA GERAR RELATÓRIO ==========
+// Adicione este botão no seu HTML ou use o existente
+function addReportButton() {
+    const formActions = document.querySelector('.form-actions');
+    
+    const reportButton = document.createElement('button');
+    reportButton.type = 'button';
+    reportButton.className = 'btn-secondary';
+    reportButton.innerHTML = '<i class="fas fa-file-pdf"></i> Gerar Relatório';
+    reportButton.onclick = generateReport;
+    
+    formActions.appendChild(reportButton);
+}
+
+// Chame esta função no DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ... seu código existente ...
+    
+    // Adicionar botão de gerar relatório
+    addReportButton();
 });
+
 
