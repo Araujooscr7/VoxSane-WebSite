@@ -135,7 +135,7 @@ nav a.active {
 .hero {
   position: relative;
   min-height: 100vh;
-  background: url('Ft.jpg') no-repeat center center/cover;
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,247 +197,164 @@ nav a.active {
 }
 
 /* Team Members */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #8A2BE2;
-    color: #333;
-    line-height: 1.6;
-}
-
 .team-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    color: #2c350;
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
-      margin-right: 300px;
-}
-
-.section-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: #8A2BE2;
-    border-radius: 2px;
-    margin-right: 300px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .team-members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .member-card {
-    background-color: #8A2BE2;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    padding-bottom: 25px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  width: 300px;
+  transition: var(--transition);
+  text-align: center;
+  padding-bottom: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .member-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .member-photo {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
 }
 
 .member-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
 }
 
 .member-card:hover .member-photo img {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .member-card h3 {
-    font-size: 1.5rem;
-    margin: 20px 0 5px;
-    color: white;
+  font-size: 1.5rem;
+  margin: 20px 0 5px;
+  color: var(--text);
 }
 
 .member-card p {
-    color: white;
-    font-weight: 600;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
 }
 
 .member-skills {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
 }
 
 .member-skills span {
-    background-color: #6a11cb;
-    color: white ;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid #e1f0ff;
+  background-color: rgba(168, 46, 252, 0.2);
+  color: var(--text);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(168, 46, 252, 0.4);
 }
 
-/* Responsividade */
-@media (max-width: 992px) {
-    .team-members {
-        gap: 20px;
-    }
-    
-    .member-card {
-        width: 280px;
-    }
-}
-
-@media (max-width: 768px) {
-    .team-members {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .member-card {
-        width: 100%;
-        max-width: 400px;
-    }
-    
-    .section-header h2 {
-        font-size: 2rem;
-    }
+/* Mission Section */
 .mission-section {
-    text-align: center;
-    margin-bottom: 60px;
+  padding: 80px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.mission-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .mission-section h2 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 50px;
-    position: relative;
-    display: inline-block;
+  font-size: 2.5rem;
+  color: var(--text);
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
 }
 
 .mission-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: #3498db;
-    border-radius: 2px;
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--accent);
+  border-radius: 2px;
 }
 
 .mission-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 }
 
 .mission-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: left;
-    transition: transform 0.3s, box-shadow 0.3s;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--box-shadow);
+  text-align: left;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mission-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .mission-card h3 {
-    font-size: 1.4rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .mission-card p {
-    color: #555;
-    margin-bottom: 20px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
 }
 
 .mission-card ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .mission-card li {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-    color: #555;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
 }
 
 .mission-card li:last-child {
-    border-bottom: none;
-}
-.partners-section {
-    background-color: #2c3e50;
-    color: white;
-    padding: 60px 40px;
-    border-radius: 12px;
-    margin-top: 40px;
-}
-
-.partners-section h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.partners-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-
-.partner-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px 30px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.partner-item h4 {
-    font-weight: 500;
+  border-bottom: none;
 }
 
 /* Footer consistente */
@@ -537,7 +454,7 @@ body {
   color: var(--text);
 }
 
-/* Responsivo */
+/* Responsividade */
 @media (max-width: 992px) {
   .title-animation {
     font-size: 2.8rem;
@@ -589,14 +506,8 @@ body {
     max-width: 350px;
   }
  
-  .mission-cards {
-    flex-direction: column;
-    align-items: center;
-  }
- 
-  .mission-card {
-    width: 100%;
-    max-width: 350px;
+  .mission-grid {
+    grid-template-columns: 1fr;
   }
  
   .footer-inner {
@@ -606,32 +517,20 @@ body {
   }
 }
 
-/* Animações extras */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
   }
-  50% {
-    transform: translateY(-10px);
+ 
+  .title-animation {
+    font-size: 1.8rem;
+  }
+ 
+  .mission-section h2 {
+    font-size: 2rem;
+  }
+ 
+  .mission-card {
+    padding: 20px;
   }
 }
-
-.member-card:hover .member-avatar {
-  animation: float 2s ease-in-out infinite;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
