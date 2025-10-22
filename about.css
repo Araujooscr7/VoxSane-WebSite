@@ -534,3 +534,48 @@ nav a.active {
     padding: 20px;
   }
 }
+.favicon-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #8A2BE2;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.favicon-container:hover {
+    transform: scale(1.1);
+    border-color: #6a0dad;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.favicon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Se quiser adicionar um favicon personalizado no HTML */
+.favicon-custom {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid #8A2BE2;
+    padding: 2px;
+    background: white;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.favicon-custom:hover {
+    border-color: #6a0dad;
+    transform: scale(1.05);
+}
