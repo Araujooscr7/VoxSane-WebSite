@@ -284,11 +284,11 @@ body {
 .member-card h3 {
     font-size: 1.5rem;
     margin: 20px 0 5px;
-    color: #2c3e50;
+    color: white;
 }
 
 .member-card p {
-    color: #3498db;
+    color: white;
     font-weight: 600;
     margin-bottom: 15px;
     font-size: 1.1rem;
@@ -578,6 +578,7 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
 
