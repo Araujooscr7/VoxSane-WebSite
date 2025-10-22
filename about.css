@@ -227,6 +227,7 @@ body {
     margin-bottom: 15px;
     position: relative;
     display: inline-block;
+      margin-right: 300px;
 }
 
 .section-header h2::after {
@@ -239,7 +240,7 @@ body {
     height: 4px;
     background-color: #8A2BE2;
     border-radius: 2px;
-    margin-left: 300px;
+    margin-right: 300px;
 }
 
 .team-members {
@@ -579,6 +580,7 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
 
