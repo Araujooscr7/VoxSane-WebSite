@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Envio do formulário
     const reportForm = document.getElementById('reportForm');
     const submitBtn = reportForm.querySelector('.btn-primary');
+    const successModal = document.getElementById('successModal');
 
     reportForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -192,20 +193,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Mostrar loading
         submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
 
         try {
-            // Processar reporte
-            await processReport();
+            // Simular processamento
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Coletar dados do formulário
+            const formData = {
+                email: document.getElementById('email').value,
+                street: document.getElementById('street').value,
+                neighborhood: document.getElementById('neighborhood').value,
+                cep: document.getElementById('cep').value,
+                city: document.getElementById('city').value,
+                problemType: document.querySelector('input[name="problemType"]:checked').value,
+                urgency: document.querySelector('input[name="urgency"]:checked').value,
+                description: document.getElementById('description').value,
+                photos: uploadedFiles.length,
+                timestamp: new Date().toLocaleString('pt-BR'),
+                status: 'pendente'
+            };
+
+            // Salvar no localStorage
+            const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            reports.push(formData);
+            localStorage.setItem('reports', JSON.stringify(reports));
+            
+            console.log('Reporte enviado:', formData);
             
             // Mostrar modal de sucesso
-            setTimeout(() => {
-                document.getElementById('successModal').style.display = 'block';
-                submitBtn.classList.remove('loading');
-            }, 2000);
-
+            successModal.style.display = 'flex';
+            
         } catch (error) {
-            alert('Erro ao enviar reporte: ' + error.message);
+            console.error('Erro:', error);
+            alert('Erro ao enviar reporte. Tente novamente.');
+        } finally {
             submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
         }
     });
 
@@ -213,13 +237,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const requiredFields = reportForm.querySelectorAll('[required]');
         let isValid = true;
 
-        // Validar campos obrigatórios
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 field.style.borderColor = '#ff6b6b';
                 isValid = false;
-                
-                // Remover o estilo após um tempo
                 setTimeout(() => {
                     field.style.borderColor = '';
                 }, 3000);
@@ -257,284 +278,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    function processReport() {
-        return new Promise((resolve) => {
-            // Coletar dados do formulário
-            const formData = {
-                email: document.getElementById('email').value,
-                street: document.getElementById('street').value,
-                neighborhood: document.getElementById('neighborhood').value,
-                cep: document.getElementById('cep').value,
-                city: document.getElementById('city').value,
-                problemType: document.querySelector('input[name="problemType"]:checked').value,
-                urgency: document.querySelector('input[name="urgency"]:checked').value,
-                description: document.getElementById('description').value,
-                photos: uploadedFiles.length,
-                timestamp: new Date().toISOString(),
-                status: 'pendente'
-            };
-
-            // Simular envio para o servidor
-            setTimeout(() => {
-                // Salvar no localStorage
-                const reports = JSON.parse(localStorage.getItem('reports') || '[]');
-                reports.push(formData);
-                localStorage.setItem('reports', JSON.stringify(reports));
-                
-                console.log('Reporte enviado:', formData);
-                
-                // Enviar email de confirmação (simulação)
-                if (formData.email) {
-                    sendConfirmationEmail(formData);
-                }
-                
-                resolve(formData);
-            }, 1500);
-        });
-    }
-
-    function sendConfirmationEmail(formData) {
-        // Simulação de envio de email
-        console.log(`Email enviado para: ${formData.email}`);
-        console.log('Assunto: Confirmação de Reporte - VOXSane');
-        console.log(`Conteúdo: Obrigado por reportar o problema de ${formData.problemType} no endereço ${formData.street}, ${formData.neighborhood}.`);
-    }
-
-   
-    });
-
-    // Adicionar indicadores visuais nos cards de urgência
-    const urgencyIndicators = document.querySelectorAll('.urgency-indicator');
-    urgencyIndicators.forEach(indicator => {
-        if (indicator.classList.contains('low')) indicator.textContent = '!';
-        if (indicator.classList.contains('medium')) indicator.textContent = '!!';
-        if (indicator.classList.contains('high')) indicator.textContent = '!!!';
-        if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
-    });
-});
-
-// CSS adicional para loading
-const additionalCSS = `
-    .loading-text {
-        color: var(--primary);
-        font-size: 0.8rem;
-        margin-top: 5px;
-        animation: pulse 1.5s infinite;
-    }
-
-    .problem-option input:checked + .problem-card::before {
-        content: '✓';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: var(--primary);
-        color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-    }
-
-    .urgency-option input:checked + .urgency-card::before {
-        content: '✓';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: var(--primary);
-        color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-    }
-`;
-
-const style = document.createElement('style');
-style.textContent = additionalCSS;
-document.head.appendChild(style);
-// Adicionar texto nos indicadores de urgência
-document.addEventListener('DOMContentLoaded', function() {
-    const urgencyIndicators = document.querySelectorAll('.urgency-indicator');
-    urgencyIndicators.forEach(indicator => {
-        if (indicator.classList.contains('low')) indicator.textContent = '!';
-        if (indicator.classList.contains('medium')) indicator.textContent = '!!';
-        if (indicator.classList.contains('high')) indicator.textContent = '!!!';
-        if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
-    });
-// Envio do formulário - VERSÃO SIMPLIFICADA E FUNCIONAL
-const reportForm = document.getElementById('reportForm');
-const submitBtn = reportForm.querySelector('.btn-primary');
-const successModal = document.getElementById('successModal');
-
-reportForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Validar formulário
-    if (!validateForm()) {
-        return;
-    }
-
-    // Mostrar loading
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-
-    try {
-        // Simular processamento
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Coletar dados básicos
-        const formData = {
-            email: document.getElementById('email').value,
-            street: document.getElementById('street').value,
-            problemType: document.querySelector('input[name="problemType"]:checked').value,
-            timestamp: new Date().toLocaleString('pt-BR')
-        };
-
-        // Salvar no localStorage
-        const reports = JSON.parse(localStorage.getItem('reports') || '[]');
-        reports.push(formData);
-        localStorage.setItem('reports', JSON.stringify(reports));
-        
-        console.log('Reporte salvo com sucesso:', formData);
-        
-        // Mostrar modal de sucesso
-        successModal.style.display = 'flex';
-        
-    } catch (error) {
-        console.error('Erro:', error);
-        alert('Erro ao enviar reporte. Tente novamente.');
-    } finally {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-    }
-});
-
-// Fechar modal ao clicar fora
-successModal.addEventListener('click', function(e) {
-    if (e.target === this) {
-        this.style.display = 'none';
-    }
-});
-
-// Função de validação básica
-function validateForm() {
-    const requiredFields = reportForm.querySelectorAll('[required]');
-    let isValid = true;
-
-    requiredFields.forEach(field => {
-        if (!field.value.trim()) {
-            field.style.borderColor = '#ff6b6b';
-            isValid = false;
-            setTimeout(() => field.style.borderColor = '', 3000);
+    // Fechar modal ao clicar fora
+    successModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
         }
     });
 
-    // Validar fotos
-    if (uploadedFiles.length === 0) {
-        alert('Por favor, adicione pelo menos uma foto do local');
-        isValid = false;
-    }
-
-    return isValid;
-}
-
-// FUNÇÃO PARA MOSTRAR MODAL DE SUCESSO
-function showSuccessModal(formData) {
-    const modal = document.getElementById('successModal');
-    const modalContent = modal.querySelector('.modal-content');
-    
-    // Atualizar conteúdo do modal com os dados
-    const problemTypes = {
-        'agua': 'Falta de Água',
-        'esgoto': 'Esgoto a Céu Aberto', 
-        'lixo': 'Acúmulo de Lixo',
-        'drenagem': 'Problema de Drenagem',
-        'outro': 'Outro Problema'
-    };
-    
-    const urgencyLevels = {
-        'baixa': 'Baixa Urgência',
-        'media': 'Média Urgência',
-        'alta': 'Alta Urgência',
-        'emergencia': 'Emergência'
-    };
-    
-    modalContent.innerHTML = `
-        <div class="modal-header">
-            <div class="modal-icon success">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Reporte Enviado com Sucesso! ✅</h3>
-        </div>
-        
-        <div class="modal-body">
-            <div class="confirmation-details">
-                <div class="detail-item">
-                    <span class="detail-label">📧 Email:</span>
-                    <span class="detail-value">${formData.email}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">📍 Local:</span>
-                    <span class="detail-value">${formData.street}, ${formData.neighborhood}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">🔧 Problema:</span>
-                    <span class="detail-value">${problemTypes[formData.problemType]}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">⚠️ Urgência:</span>
-                    <span class="detail-value urgency-${formData.urgency}">${urgencyLevels[formData.urgency]}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">📷 Fotos:</span>
-                    <span class="detail-value">${formData.photos} foto(s) anexada(s)</span>
-                </div>
-            </div>
-            
-            <div class="status-message">
-                <p>🎉 <strong>Obrigado por sua contribuição!</strong></p>
-                <p>Seu reporte foi registrado e entraremos em contato em até <strong>48 horas</strong>.</p>
-            </div>
-        </div>
-        
-        <div class="modal-actions">
-            <button class="btn-primary" onclick="closeModalAndRedirect()">
-                <i class="fas fa-home"></i> Voltar para Home
-            </button>
-            <button class="btn-secondary" onclick="closeModal()">
-                <i class="fas fa-plus"></i> Fazer Novo Reporte
-            </button>
-        </div>
-    `;
-    
-    modal.style.display = 'flex';
-}
-
-// FUNÇÃO PARA FECHAR MODAL
-function closeModal() {
-    const modal = document.getElementById('successModal');
-    modal.style.display = 'none';
-    // Limpar formulário se quiser
-    // reportForm.reset();
-}
-
-function closeModalAndRedirect() {
-    closeModal();
-    window.location.href = 'index.html';
-}
-
-// Fechar modal clicando fora
-document.getElementById('successModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
-    }
+    // Adicionar texto nos indicadores de urgência
+    const urgencyIndicators = document.querySelectorAll('.urgency-indicator');
+    urgencyIndicators.forEach(indicator => {
+        if (indicator.classList.contains('low')) indicator.textContent = '!';
+        if (indicator.classList.contains('medium')) indicator.textContent = '!!';
+        if (indicator.classList.contains('high')) indicator.textContent = '!!!';
+        if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
+    });
 });
-
-
-
