@@ -339,60 +339,56 @@ body {
     .section-header h2 {
         font-size: 2rem;
     }
-}
-.mission-section {
-    padding: 80px 0;
+  .mission-section {
     text-align: center;
-}
-
-.mission-header {
     margin-bottom: 60px;
 }
 
-.mission-header h1 {
-    font-size: 3rem;
+.mission-section h2 {
+    font-size: 2.5rem;
     color: #2c3e50;
-    margin-bottom: 15px;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
 }
 
-.mission-header p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    max-width: 800px;
-    margin: 0 auto;
+.mission-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #3498db;
+    border-radius: 2px;
 }
 
-.mission-content {
+.mission-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    margin-bottom: 60px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 .mission-card {
     background-color: white;
-    border-radius: 12px;
-    padding: 40px 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     text-align: left;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .mission-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .mission-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #2c3e50;
     margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.mission-card h3 i {
-    margin-right: 10px;
-    color: #3498db;
+    font-weight: 600;
 }
 
 .mission-card p {
@@ -400,19 +396,20 @@ body {
     margin-bottom: 20px;
 }
 
-.mission-features {
-    list-style: none;
+.mission-card ul {
+    list-style-type: none;
 }
 
-.mission-features li {
+.mission-card li {
     padding: 8px 0;
     border-bottom: 1px solid #eee;
     color: #555;
 }
 
-.mission-features li:last-child {
+.mission-card li:last-child {
     border-bottom: none;
 }
+
 
 .partners-section {
     background-color: #2c3e50;
@@ -625,6 +622,7 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
 
