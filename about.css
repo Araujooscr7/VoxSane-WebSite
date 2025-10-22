@@ -239,6 +239,7 @@ body {
     height: 4px;
     background-color: #8A2BE2;
     border-radius: 2px;
+    margin-left: 300px;
 }
 
 .team-members {
@@ -578,6 +579,7 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
 
