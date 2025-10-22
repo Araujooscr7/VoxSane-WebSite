@@ -303,8 +303,8 @@ body {
 }
 
 .member-skills span {
-    background-color: red;
-    color: blue ;
+    background-color: #6a11cb;
+    color: white ;
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -578,6 +578,7 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
 
