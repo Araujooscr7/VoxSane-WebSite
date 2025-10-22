@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (indicator.classList.contains('high')) indicator.textContent = '!!!';
         if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
     });
-// Envio do formulário - VERSÃO CORRIGIDA
+// Envio do formulário - VERSÃO SIMPLIFICADA E FUNCIONAL
 const reportForm = document.getElementById('reportForm');
 const submitBtn = reportForm.querySelector('.btn-primary');
 const successModal = document.getElementById('successModal');
@@ -386,21 +386,14 @@ reportForm.addEventListener('submit', async function(e) {
 
     try {
         // Simular processamento
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
-        // Coletar dados do formulário
+        // Coletar dados básicos
         const formData = {
             email: document.getElementById('email').value,
             street: document.getElementById('street').value,
-            neighborhood: document.getElementById('neighborhood').value,
-            cep: document.getElementById('cep').value,
-            city: document.getElementById('city').value,
             problemType: document.querySelector('input[name="problemType"]:checked').value,
-            urgency: document.querySelector('input[name="urgency"]:checked').value,
-            description: document.getElementById('description').value,
-            photos: uploadedFiles.length,
-            timestamp: new Date().toLocaleString('pt-BR'),
-            status: 'pendente'
+            timestamp: new Date().toLocaleString('pt-BR')
         };
 
         // Salvar no localStorage
@@ -408,19 +401,48 @@ reportForm.addEventListener('submit', async function(e) {
         reports.push(formData);
         localStorage.setItem('reports', JSON.stringify(reports));
         
-        console.log('Reporte salvo:', formData);
+        console.log('Reporte salvo com sucesso:', formData);
         
         // Mostrar modal de sucesso
-        showSuccessModal(formData);
+        successModal.style.display = 'flex';
         
     } catch (error) {
         console.error('Erro:', error);
-        showErrorModal('Erro ao enviar reporte. Tente novamente.');
+        alert('Erro ao enviar reporte. Tente novamente.');
     } finally {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
     }
 });
+
+// Fechar modal ao clicar fora
+successModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+});
+
+// Função de validação básica
+function validateForm() {
+    const requiredFields = reportForm.querySelectorAll('[required]');
+    let isValid = true;
+
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.style.borderColor = '#ff6b6b';
+            isValid = false;
+            setTimeout(() => field.style.borderColor = '', 3000);
+        }
+    });
+
+    // Validar fotos
+    if (uploadedFiles.length === 0) {
+        alert('Por favor, adicione pelo menos uma foto do local');
+        isValid = false;
+    }
+
+    return isValid;
+}
 
 // FUNÇÃO PARA MOSTRAR MODAL DE SUCESSO
 function showSuccessModal(formData) {
@@ -513,5 +535,6 @@ document.getElementById('successModal').addEventListener('click', function(e) {
         closeModal();
     }
 });
+
 
 
