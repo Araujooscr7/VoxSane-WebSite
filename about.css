@@ -223,7 +223,7 @@ body {
 
 .section-header h2 {
     font-size: 2.5rem;
-    color: #2c3e50;
+    color: #2c350;
     margin-bottom: 15px;
     position: relative;
     display: inline-block;
@@ -237,7 +237,7 @@ body {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background-color: #3498db;
+    background-color: #8A2BE2;
     border-radius: 2px;
 }
 
@@ -578,5 +578,6 @@ body {
   animation: float 2s ease-in-out infinite;
 
 }
+
 
 
