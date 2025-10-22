@@ -367,122 +367,151 @@ document.addEventListener('DOMContentLoaded', function() {
         if (indicator.classList.contains('high')) indicator.textContent = '!!!';
         if (indicator.classList.contains('emergency')) indicator.textContent = '!!!!';
     });
-// ========== FUNÇÃO PARA GERAR RELATÓRIO ==========
-function generateReport() {
-    // Coletar dados do formulário
-    const formData = {
-        email: document.getElementById('email').value,
-        street: document.getElementById('street').value,
-        neighborhood: document.getElementById('neighborhood').value,
-        cep: document.getElementById('cep').value,
-        city: document.getElementById('city').value,
-        problemType: document.querySelector('input[name="problemType"]:checked').value,
-        urgency: document.querySelector('input[name="urgency"]:checked').value,
-        description: document.getElementById('description').value,
-        photos: uploadedFiles.length,
-        timestamp: new Date().toLocaleString('pt-BR'),
-        status: 'pendente'
+// Envio do formulário - VERSÃO CORRIGIDA
+const reportForm = document.getElementById('reportForm');
+const submitBtn = reportForm.querySelector('.btn-primary');
+const successModal = document.getElementById('successModal');
+
+reportForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Validar formulário
+    if (!validateForm()) {
+        return;
+    }
+
+    // Mostrar loading
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    try {
+        // Simular processamento
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Coletar dados do formulário
+        const formData = {
+            email: document.getElementById('email').value,
+            street: document.getElementById('street').value,
+            neighborhood: document.getElementById('neighborhood').value,
+            cep: document.getElementById('cep').value,
+            city: document.getElementById('city').value,
+            problemType: document.querySelector('input[name="problemType"]:checked').value,
+            urgency: document.querySelector('input[name="urgency"]:checked').value,
+            description: document.getElementById('description').value,
+            photos: uploadedFiles.length,
+            timestamp: new Date().toLocaleString('pt-BR'),
+            status: 'pendente'
+        };
+
+        // Salvar no localStorage
+        const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+        reports.push(formData);
+        localStorage.setItem('reports', JSON.stringify(reports));
+        
+        console.log('Reporte salvo:', formData);
+        
+        // Mostrar modal de sucesso
+        showSuccessModal(formData);
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        showErrorModal('Erro ao enviar reporte. Tente novamente.');
+    } finally {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }
+});
+
+// FUNÇÃO PARA MOSTRAR MODAL DE SUCESSO
+function showSuccessModal(formData) {
+    const modal = document.getElementById('successModal');
+    const modalContent = modal.querySelector('.modal-content');
+    
+    // Atualizar conteúdo do modal com os dados
+    const problemTypes = {
+        'agua': 'Falta de Água',
+        'esgoto': 'Esgoto a Céu Aberto', 
+        'lixo': 'Acúmulo de Lixo',
+        'drenagem': 'Problema de Drenagem',
+        'outro': 'Outro Problema'
     };
-
-    // Criar conteúdo do relatório
-    const reportContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Relatório - VOXSane</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; }
-                .section { margin: 20px 0; }
-                .section h3 { background: #f5f5f5; padding: 10px; border-left: 4px solid #8a2be2; }
-                .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-                .photos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-                .photo-item { width: 150px; height: 150px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
-                .urgency-badge { padding: 5px 10px; border-radius: 20px; color: white; font-weight: bold; }
-                .low { background: #28a745; }
-                .medium { background: #ffc107; color: black; }
-                .high { background: #fd7e14; }
-                .emergency { background: #dc3545; }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>📋 RELATÓRIO DE PROBLEMA - VOXSane</h1>
-                <p>Data de geração: ${new Date().toLocaleString('pt-BR')}</p>
+    
+    const urgencyLevels = {
+        'baixa': 'Baixa Urgência',
+        'media': 'Média Urgência',
+        'alta': 'Alta Urgência',
+        'emergencia': 'Emergência'
+    };
+    
+    modalContent.innerHTML = `
+        <div class="modal-header">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
             </div>
-
-            <div class="section">
-                <h3>📧 Informações de Contato</h3>
-                <p><strong>Email:</strong> ${formData.email}</p>
-            </div>
-
-            <div class="section">
-                <h3>📍 Localização</h3>
-                <div class="info-grid">
-                    <p><strong>Rua:</strong> ${formData.street}</p>
-                    <p><strong>Bairro:</strong> ${formData.neighborhood}</p>
-                    <p><strong>CEP:</strong> ${formData.cep}</p>
-                    <p><strong>Cidade:</strong> ${formData.city}</p>
+            <h3>Reporte Enviado com Sucesso! ✅</h3>
+        </div>
+        
+        <div class="modal-body">
+            <div class="confirmation-details">
+                <div class="detail-item">
+                    <span class="detail-label">📧 Email:</span>
+                    <span class="detail-value">${formData.email}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">📍 Local:</span>
+                    <span class="detail-value">${formData.street}, ${formData.neighborhood}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">🔧 Problema:</span>
+                    <span class="detail-value">${problemTypes[formData.problemType]}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">⚠️ Urgência:</span>
+                    <span class="detail-value urgency-${formData.urgency}">${urgencyLevels[formData.urgency]}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">📷 Fotos:</span>
+                    <span class="detail-value">${formData.photos} foto(s) anexada(s)</span>
                 </div>
             </div>
-
-            <div class="section">
-                <h3>🔧 Tipo de Problema</h3>
-                <p><strong>Problema Reportado:</strong> ${formData.problemType.toUpperCase()}</p>
+            
+            <div class="status-message">
+                <p>🎉 <strong>Obrigado por sua contribuição!</strong></p>
+                <p>Seu reporte foi registrado e entraremos em contato em até <strong>48 horas</strong>.</p>
             </div>
-
-            <div class="section">
-                <h3>⚠️ Nível de Urgência</h3>
-                <span class="urgency-badge ${formData.urgency}">
-                    ${formData.urgency.toUpperCase()}
-                </span>
-            </div>
-
-            <div class="section">
-                <h3>📷 Fotos Anexadas</h3>
-                <p><strong>Quantidade de fotos:</strong> ${formData.photos}</p>
-            </div>
-
-            <div class="section">
-                <h3>📝 Descrição Detalhada</h3>
-                <p>${formData.description}</p>
-            </div>
-
-            <div class="section">
-                <h3>📊 Status</h3>
-                <p><strong>Status atual:</strong> ${formData.status}</p>
-                <p><strong>ID do reporte:</strong> #${Date.now()}</p>
-            </div>
-        </body>
-        </html>
+        </div>
+        
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="closeModalAndRedirect()">
+                <i class="fas fa-home"></i> Voltar para Home
+            </button>
+            <button class="btn-secondary" onclick="closeModal()">
+                <i class="fas fa-plus"></i> Fazer Novo Reporte
+            </button>
+        </div>
     `;
-
-    // Abrir relatório em nova aba
-    const reportWindow = window.open('', '_blank');
-    reportWindow.document.write(reportContent);
-    reportWindow.document.close();
+    
+    modal.style.display = 'flex';
 }
 
-// ========== BOTÃO PARA GERAR RELATÓRIO ==========
-// Adicione este botão no seu HTML ou use o existente
-function addReportButton() {
-    const formActions = document.querySelector('.form-actions');
-    
-    const reportButton = document.createElement('button');
-    reportButton.type = 'button';
-    reportButton.className = 'btn-secondary';
-    reportButton.innerHTML = '<i class="fas fa-file-pdf"></i> Gerar Relatório';
-    reportButton.onclick = generateReport;
-    
-    formActions.appendChild(reportButton);
+// FUNÇÃO PARA FECHAR MODAL
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    modal.style.display = 'none';
+    // Limpar formulário se quiser
+    // reportForm.reset();
 }
 
-// Chame esta função no DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    // ... seu código existente ...
-    
-    // Adicionar botão de gerar relatório
-    addReportButton();
+function closeModalAndRedirect() {
+    closeModal();
+    window.location.href = 'index.html';
+}
+
+// Fechar modal clicando fora
+document.getElementById('successModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
 });
 
 
