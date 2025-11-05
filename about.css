@@ -17,14 +17,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-svg {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-}
-
-
 }
 body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -605,5 +597,6 @@ nav a.active {
     border-color: #6a0dad; /* Muda a cor da borda */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Aumenta a sombra */
 }
+
 
 
