@@ -11,17 +11,21 @@
   --border-radius: 12px;
   --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.rounded-svg {
-  border-radius: 50%;
-  overflow: hidden;
-}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+svg {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
 
+
+}
 body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
@@ -601,4 +605,5 @@ nav a.active {
     border-color: #6a0dad; /* Muda a cor da borda */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Aumenta a sombra */
 }
+
 
