@@ -1,4 +1,3 @@
-/* Reset e variáveis CSS - Consistente com a primeira página */
 :root {
   --primary: #a82efc;
   --primary-dark: #8a1ed9;
@@ -197,6 +196,12 @@ nav a.active {
 }
 
 /* Team Members */
+.team-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
 .team-members {
   display: flex;
   flex-wrap: wrap;
@@ -273,49 +278,82 @@ nav a.active {
 
 /* Mission Section */
 .mission-section {
-  background: var(--secondary);
-  color: var(--text);
   padding: 80px 20px;
   text-align: center;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .mission-section .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.mission-section h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: var(--text);
-}
-
 .mission-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 2.5rem;
   color: var(--text);
-  font-weight: bold;
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
 }
 
-.mission-section ul {
-  list-style: none;
-  margin-bottom: 40px;
+.mission-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--accent);
+  border-radius: 2px;
 }
 
-.mission-section li {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.mission-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--box-shadow);
+  text-align: left;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mission-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.mission-card h3 {
+  font-size: 1.4rem;
   color: var(--text);
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
-.mission-section li strong {
-  color: var(--text); /* Mesma cor, mas já está em negrito */
-}
-
-.mission-section p {
-  font-size: 1.1rem;
+.mission-card p {
+  color: var(--text-secondary);
   margin-bottom: 20px;
-  color: var(--text);
+}
+
+.mission-card ul {
+  list-style-type: none;
+}
+
+.mission-card li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.mission-card li:last-child {
+  border-bottom: none;
 }
 
 /* Footer consistente */
@@ -467,6 +505,10 @@ nav a.active {
     max-width: 350px;
   }
  
+  .mission-grid {
+    grid-template-columns: 1fr;
+  }
+ 
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -483,19 +525,79 @@ nav a.active {
     font-size: 1.8rem;
   }
  
-  .mission-section h1 {
-    font-size: 2.5rem;
-  }
- 
   .mission-section h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
  
-  .mission-section li {
-    font-size: 1rem;
-  }
- 
-  .mission-section p {
-    font-size: 1rem;
+  .mission-card {
+    padding: 20px;
   }
 }
+.favicon-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #8A2BE2;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.favicon-container:hover {
+    transform: scale(1.1);
+    border-color: #6a0dad;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.favicon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Se quiser adicionar um favicon personalizado no HTML */
+.favicon-custom {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid #8A2BE2;
+    padding: 2px;
+    background: white;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.favicon-custom:hover {
+    border-color: #6a0dad;
+    transform: scale(1.05);
+}
+
+.favicon-style {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: 50px;
+    border: 2px solid #8A2BE2; /* Borda roxa */
+    border-radius: 8px; /* Cantos arredondados */
+    padding: 2px; /* Espaço entre a imagem e a borda */
+    object-fit: contain; /* Garante que a imagem se ajuste sem distorcer */
+    background-color: white; /* Cor de fundo, se necessário */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave */
+    transition: all 0.3s ease; /* Transição suave para efeitos hover */
+}
+
+/* Efeito ao passar o mouse */
+.favicon-style:hover {
+    transform: scale(1.05); /* Aumenta ligeiramente */
+    border-color: #6a0dad; /* Muda a cor da borda */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Aumenta a sombra */
+}
+
+
+
+
